@@ -116,6 +116,10 @@ h3{font-size:20px;font-weight:800;line-height:1.25}
 .bub{height:34px;border-radius:16px;background:#fff;width:78%}
 .bub.me{align-self:flex-end;background:var(--peach);width:58%}
 .bub.l{height:52px}
+.phonewrap{justify-self:center;display:flex;flex-direction:column;align-items:center;gap:14px}
+.screen.live{padding:0;position:relative;background:#fff}
+.screen.live iframe{position:absolute;top:0;left:0;width:390px;border:0;transform-origin:0 0;background:#fff}
+.live-link{font-weight:700;color:#141414}
 .skills{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
 .sk{background:var(--bg2);border-radius:16px;padding:22px}
 .sk h3{margin-bottom:14px;color:var(--peach)}
@@ -245,11 +249,13 @@ h3{font-size:20px;font-weight:800;line-height:1.25}
         <li>Te vinden op <a href="https://vraaghetomewillem.nl">vraaghetomewillem.nl</a>, Instagram en YouTube</li>
       </ul>
     </div>
-    <div class="phone" aria-hidden="true">
-      <div class="screen">
-        <div class="top"><div class="av"></div><b>Ome Willem</b></div>
-        <div class="bub"></div><div class="bub me"></div><div class="bub l"></div><div class="bub me"></div><div class="bub"></div>
+    <div class="phonewrap">
+      <div class="phone">
+        <div class="screen live" id="scr">
+          <iframe id="owf" src="https://vraaghetomewillem.nl" title="Live: vraaghetomewillem.nl" loading="lazy"></iframe>
+        </div>
       </div>
+      <a class="live-link" href="https://vraaghetomewillem.nl">Live te bekijken: vraaghetomewillem.nl ↗</a>
     </div>
   </div>
 </section>
@@ -326,6 +332,9 @@ document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')step(1);if(e.key
 show();
 const lam=document.getElementById('lam'),tg=document.getElementById('toggle');
 tg.addEventListener('click',()=>{lam.classList.remove('boot');const down=!lam.classList.contains('down');lam.classList.toggle('down',down);tg.textContent=down?'Laat het screen omhoog ↑':'Laat het screen zakken ↓'});
+const scr=document.getElementById('scr'),owf=document.getElementById('owf');
+const fit=()=>{const w=scr.clientWidth,h=scr.clientHeight,k=w/390;owf.style.transform='scale('+k+')';owf.style.height=(h/k)+'px'};
+const roPhone=new ResizeObserver(fit);roPhone.observe(scr);
 const btn=document.getElementById('copy'),toast=document.getElementById('toast');
 btn.addEventListener('click',async()=>{try{await navigator.clipboard.writeText('timo_burlet@hotmail.com');toast.textContent='Gekopieerd.'}catch(e){toast.textContent='Kopiëren lukt hier niet: timo_burlet@hotmail.com'}});
 }
